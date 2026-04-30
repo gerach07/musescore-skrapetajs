@@ -1,0 +1,26 @@
+{
+  "name": "musescore-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gerach07/musescore-scraper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gerach07/musescore-scraper/issues"
+  },
+  "homepage": "https://github.com/gerach07/musescore-scraper#readme",
+  "dependencies": {
+    "@sparticuz/chromium": "^131.0.1",
+    "chrome-aws-lambda": "^10.1.0",
+    "playwright-core": "^1.59.1"
+  }
+}

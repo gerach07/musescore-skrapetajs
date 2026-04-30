@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuseScore MIDI Lejupielāde</title>
+    <meta name="description" content="Pārveido MuseScore notu saiti par lejupielādējamu MIDI failu. Ātri un vienkārši.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-a: #fff8ea;
+            --bg-b: #e7f2ff;
+            --bg-c: #e8fff2;
+            --card: rgba(255, 255, 255, 0.93);
+            --text: #102134;
+            --muted: #4f6378;
+            --line: #d2dfed;
+            --accent: #005eb8;
+            --accent-strong: #00458a;
+            --warn-bg: #fff3e9;
+            --warn-line: #ffc994;
+            --warn-text: #8b3f00;
+            --ok: #0d7f49;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 15% 20%, var(--bg-a), transparent 35%),
+                radial-gradient(circle at 88% 12%, var(--bg-b), transparent 38%),
+                radial-gradient(circle at 50% 100%, var(--bg-c), transparent 42%),
+                #f4f8fd;
+            display: grid;
+            place-items: center;
+            padding: 28px 16px;
+            animation: fadeInBody 0.7s ease;
+        }
+
+        @keyframes fadeInBody {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .shell {
+            width: 100%;
+            max-width: 740px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: var(--card);
+            box-shadow: 0 26px 70px rgba(10, 35, 70, 0.14);
+            backdrop-filter: blur(8px);
+            overflow: hidden;
+            animation: liftIn 0.8s ease;
+        }
+
+        @keyframes liftIn {
+            from {
+                opacity: 0;
+                transform: translateY(14px) scale(0.985);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .band {
+            padding: 22px 24px;
+            background: linear-gradient(120deg, #09315f, #0b6ed0 45%, #43a8ff);
+            color: #fff;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .content {
+            padding: 30px 24px 22px;
+        }
+
+        h1 {
+            margin: 0;
+<<<<<<< HEAD
+            font-family: Georgia, serif;
+=======
+            font-family: "Fraunces", Georgia, serif;
+>>>>>>> adec18883b13557d94b90cebe324540aa392c2e4
+            font-weight: 800;
+            font-size: clamp(28px, 4.8vw, 42px);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        .sub {
+            margin: 12px 0 22px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .callout {
+            margin: 0 0 18px;
+            padding: 12px 14px;
+            border: 1px solid #bfd6f4;
+            border-radius: 12px;
+            background: #eef6ff;
+            color: #184a82;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .warning {
+            margin: 0 0 20px;
+            padding: 12px 14px;
+            border: 1px solid var(--warn-line);
+            border-radius: 12px;
+            background: var(--warn-bg);
+            color: var(--warn-text);
+            font-size: 14px;
+            line-height: 1.45;
+            font-weight: 700;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+        }
+
+        input {
+            min-width: 0;
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #c7d4e6;
+            padding: 13px 14px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            border-color: #4b9eff;
+            box-shadow: 0 0 0 4px rgba(75, 158, 255, 0.15);
+        }
+
+        button {
+            border: none;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+            cursor: pointer;
+            transition: transform 0.12s ease, opacity 0.2s ease;
+            white-space: nowrap;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.65;
+            transform: none;
+        }
+
+        #result {
+            margin-top: 16px;
+            min-height: 24px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        #result a {
+            color: var(--ok);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(10, 127, 66, 0.25);
+            padding-bottom: 2px;
+        }
+
+        #result a:hover {
+            border-bottom-color: rgba(10, 127, 66, 0.55);
+        }
+
+        .credit {
+            margin-top: 22px;
+            padding-top: 14px;
+            border-top: 1px solid #e3e9f3;
+            font-size: 13px;
+            color: #6b778a;
+        }
+
+        @media (max-width: 620px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <div class="band">MuseScore uz MIDI</div>
+        <div class="content">
+            <h1>Pārveido MuseScore saiti par MIDI lejupielādi</h1>
+            <p class="sub">Ielīmē MuseScore notu URL, un šis rīks mēģinās atrast tev lejupielādējamu MIDI failu.</p>
+            <p class="callout">Apstrāde var aizņemt līdz 1 minūtei, atkarībā no lapas aizsardzības un interneta ātruma.</p>
+            <p class="warning">Lieto uz savu risku. Šāda failu iegūšana dažos gadījumos var būt nelikumīga tavā valstī vai pārkāpt platformas noteikumus.</p>
+
+            <div class="row">
+                <input type="text" id="scoreUrl" placeholder="https://musescore.com/user/..." aria-label="MuseScore URL">
+                <button id="fetchBtn" onclick="fetchMidi()">Iegūt MIDI</button>
+            </div>
+
+            <div id="result"></div>
+            <div class="credit">Made by Adrians Bergmanis</div>
+        </div>
+    </main>
+
+    <script>
+        async function fetchMidi() {
+            const scoreUrl = document.getElementById('scoreUrl').value;
+            const resultDiv = document.getElementById('result');
+            const submitBtn = document.getElementById('fetchBtn');
+            const startedAt = Date.now();
+            let timerId = null;
+
+            const renderProgress = () => {
+                const elapsed = ((Date.now() - startedAt) / 1000).toFixed(1);
+                resultDiv.innerText = `Meklēju lejupielādējamu MIDI... lūdzu uzgaidi. (${elapsed}s)`;
+            };
+
+            if (!scoreUrl) {
+                resultDiv.innerText = "Vispirms ielīmē MuseScore URL.";
+                return;
+            }
+            
+            renderProgress();
+            timerId = setInterval(renderProgress, 200);
+            if (submitBtn) submitBtn.disabled = true;
+
+            try {
+                const apiBase = window.MIDI_API_BASE || "";
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 70000);
+
+                const response = await fetch(`${apiBase}/api/get-midi?scoreUrl=${encodeURIComponent(scoreUrl)}`, {
+                    signal: controller.signal,
+                });
+                clearTimeout(timeoutId);
+
+                const contentType = response.headers.get("content-type") || "";
+                let data;
+                if (contentType.includes("application/json")) {
+                    data = await response.json();
+                } else {
+                    const text = await response.text();
+                    data = { error: text || "Server returned a non-JSON response." };
+                }
+
+                if (!response.ok) {
+                    const elapsed = ((Date.now() - startedAt) / 1000).toFixed(1);
+                    resultDiv.innerText = "Kļūda: " + (data.error || `Pieprasījums neizdevās (${response.status})`) + ` (${elapsed}s)`;
+                    return;
+                }
+
+                if (data.midiUrl) {
+                    const href = data.downloadUrl || data.midiUrl;
+                    const elapsed = ((Date.now() - startedAt) / 1000).toFixed(1);
+                    const backendMs = data.meta?.totalMs;
+                    const backendSec = typeof backendMs === "number" ? (backendMs / 1000).toFixed(1) : null;
+                    const timingText = backendSec ? `Klients ${elapsed}s, API ${backendSec}s` : `Klients ${elapsed}s`;
+                    resultDiv.innerHTML = `<a href="${href}" target="_blank" rel="noopener">Lejupielādēt MIDI failu</a><div style="margin-top:8px;font-size:12px;color:#555;">${timingText}</div>`;
+                } else {
+                    const elapsed = ((Date.now() - startedAt) / 1000).toFixed(1);
+                    resultDiv.innerText = "Kļūda: " + (data.error || "Neizdevās atrast MIDI.") + ` (${elapsed}s)`;
+                }
+            } catch (err) {
+                if (err.name === 'AbortError') {
+                    const elapsed = ((Date.now() - startedAt) / 1000).toFixed(1);
+                    resultDiv.innerText = `Pieprasījumam iestājās noilgums. Mēģini vēlreiz. (${elapsed}s)`;
+                } else {
+                    const elapsed = ((Date.now() - startedAt) / 1000).toFixed(1);
+                    resultDiv.innerText = `Neizdevās pieslēgties serverim. (${elapsed}s)`;
+                }
+            } finally {
+                if (timerId) clearInterval(timerId);
+                if (submitBtn) submitBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/get-midi.js": {
+      "maxDuration": 60,
+      "memory": 1024
+    }
+  }
+}
